@@ -19,7 +19,7 @@ export default class User extends BaseModel {
   public rememberMeToken: string | null
 
   @column()
-  public roleTypeId: number
+  public roleId: number
 
   @column()
   public firstName: string
