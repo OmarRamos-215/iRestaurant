@@ -1,4 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Role from 'App/Models/Role';
 import User from 'App/Models/User';
 
 export default class AuthController {
@@ -22,16 +23,14 @@ public async login({ request, auth }: HttpContextContract) {
         const phoneNumber = request.input("phoneNumber")
 
         
-        /**
-        * Create a new user
-        */
-        
         const user = new User();
         user.email = email;
         user.password = password;
-        user.firstName = firstName
-        user.lastName = lastName
-        user.phoneNumber = phoneNumber
+        user.firstName = firstName;
+        user.lastName = lastName;
+        user.phoneNumber = phoneNumber;
+        const clientRole = await Role.query().where('role','client').first()
+        user.roleId = clientRole?.id ? clientRole?.id : 1;
         await user.save();
         
         const token = await auth.use("api").login(user, {
