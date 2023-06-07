@@ -8,8 +8,8 @@ export default class extends BaseSchema {
       table.increments('id').primary()
       table.string('name', 255).notNullable()
       table.integer('location_id').notNullable()
-      table.timestamp('open_time', { useTz: true }).notNullable()
-      table.timestamp('close_time', { useTz: true }).notNullable()
+      table.string('open_time').notNullable()
+      table.string('close_time').notNullable()
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

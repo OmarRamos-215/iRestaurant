@@ -15,13 +15,13 @@ export default class Product extends BaseModel {
   public name: string
 
   @column()
-  public branchId: number
+  public description: string | null
 
   @column()
   public image: string | null
 
   @column()
-  public exlclusive: boolean
+  public exclusive: boolean
 
   @column()
   public price: number

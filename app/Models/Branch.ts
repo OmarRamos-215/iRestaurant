@@ -18,10 +18,10 @@ export default class Branch extends BaseModel {
   public locationId: number
 
   @column()
-  public openTime: DateTime
+  public openTime: string
 
   @column()
-  public closeTime: DateTime
+  public closeTime: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

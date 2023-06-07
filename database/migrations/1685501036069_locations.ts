@@ -6,8 +6,8 @@ export default class extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
-      table.integer('latitude').notNullable()
-      table.integer('longitude').notNullable()
+      table.float('latitude').notNullable()
+      table.float('longitude').notNullable()
       table.string('address',100).notNullable()
       table.string('additional_information',255).nullable()
 
