@@ -26,6 +26,7 @@ Route.get('/', async () => {
 
   Route.post("register", "AuthController.register");
   Route.post("login", "AuthController.login");
+  Route.get("api/branches", "BranchesController.getBranchNames");
 
 Route.group(() => {
       Route.group(() => {
