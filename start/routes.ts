@@ -28,8 +28,6 @@ Route.get('/', async () => {
   Route.post("login", "AuthController.login");
 
 Route.group(() => {
-
-  
       Route.group(() => {
       Route.get("/", "ProductsController.index");
       Route.get("/:id", "ProductsController.show");
@@ -37,3 +35,8 @@ Route.group(() => {
       Route.post("/", "ProductsController.store");
       }).middleware("auth:api");
 }).prefix("products");
+
+Route.group(() => {
+  Route.post("/generate_xml", "InvoiceController.generateXML")
+  Route.post("/generate_pdf", "InvoiceController.generatePDF")
+}).prefix("invoices")
