@@ -18,7 +18,7 @@ export default class InvoiceController {
       total += (concept.quantity * concept.price);
       totalTransfer += Number((concept.quantity*0.16).toFixed(2))*concept.quantity;
     }
-    const date = params.date.split('.')[0]
+    const date = params.currentDate.split('.')[0]
     const subtotal = Number((total / 1.16).toFixed(2));
 
     const cfdi = new CFDI({
@@ -91,7 +91,7 @@ export default class InvoiceController {
 
     cfdi.certificar(cer);
 
-    const result = cfdi.xmlSellado(key, '12345678a')
+    const result = await cfdi.xmlSellado(key, '12345678a')
     .then(xml => {
       console.log(xml);
       return xml;
@@ -101,7 +101,7 @@ export default class InvoiceController {
       return err
     });
 
-    return result;
+    return { xml: result};
   }
 
   async generatePDF({request}: HttpContextContract) {
