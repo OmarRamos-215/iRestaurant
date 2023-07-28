@@ -38,15 +38,15 @@ export default class InvoiceController {
     });
 
     cfdi.emisor({
-      Rfc: params.issuer.rfc,
-      Nombre: params.issuer.name,
-        RegimenFiscal: params.issuer.taxRegimen
+      Rfc: params.rfc_issuer,
+      Nombre: params.issuer,
+        RegimenFiscal: params.taxRegimen
     })
 
     cfdi.receptor({
-        Rfc: params.receiver.rfc,
-        Nombre: params.receiver.name,
-        UsoCFDI: params.receiver.cfdiUse
+        Rfc: params.rfc_receiver,
+        Nombre: params.receiver,
+        UsoCFDI: params.cfdiUse
     });
 
     for (let index = 0; index < params.concepts.length; index++) {
