@@ -4,38 +4,31 @@ import Application from '@ioc:Adonis/Core/Application'
 export default class InvoiceController {
 
   public async generateXML({request, auth}: HttpContextContract) {
+    const CFDI = require('cfdi40');
+    const path = require("path");
+
     const params = request.all();
     const concepts = JSON.parse(params.concepts).concepts;
-    console.log('++++++++',params)
     const cerFile = request.file('cerFile');
     const keyFile = request.file('keyFile');
 
+    if (cerFile) {
+      await cerFile.move(Application.tmpPath('files'), {
+        name: 'cerFile.cer',
+        overwrite: true
+      });
+    }
 
-    const CFDI = require('cfdi40');
-    const path = require("path");
+    if (keyFile) {
+      await keyFile.move(Application.tmpPath('files'), {
+        name: 'keyFile.key',
+        overwrite: true
+      });
+    }
+
+    const cer = path.join(__dirname, '../../../tmp/files/cerFile.cer');
+    const key = path.join(__dirname, '../../../tmp/files/keyFile.key');
     
-    // Multer Storage
-    const multer = require("multer");
-    const multerStorage = multer.diskStorage({
-      destination: (req, file, cb) => {
-        cb(null, 'public/files');
-      },
-      filename: (req, file, cb) => {
-        const fileextension = file.mimetype.split('/')[1];
-        cb(null, `rim-${req.body.sku}-${Date.now()}.${fileextension}`);
-      }
-    });
-
-    //setup file upload
-    const upload = multer({
-      storage: multerStorage
-    });
-
-
-    console.log(params);
-    // Requires respective files on this folder
-    const cer = path.join(__dirname, '30001000000400002335.cer');
-    const key = path.join(__dirname, '30001000000400002335.key');
 
     let total = 0;
     let totalTransfer = 0;
@@ -121,15 +114,21 @@ export default class InvoiceController {
 
     const result = await cfdi.xmlSellado(key, '12345678a')
     .then(xml => {
-      console.log(xml);
-      return xml;
+      console.log('xml: ',xml);
+      return {
+        success: true,
+        message: xml
+      };
     })
     .catch(err => {
-      console.log(err);
-      return err
+      console.log('Error: ',err);
+      return {
+        success: false,
+        message: err
+      }
     });
 
-    return { xml: result};
+    return result;
   }
 
   async generatePDF({request}: HttpContextContract) {
