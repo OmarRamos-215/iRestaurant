@@ -143,12 +143,12 @@ export default class InvoiceController {
     let easyInvoice = require('easyinvoice');
 
     const data = {
-      /*"images": {
+      "images": {
           // The logo on top of your invoice
-          "logo": "https://public.easyinvoice.cloud/img/logo_en_original.png",
+          "logo": params?.settings.logo,
           // The invoice background
-          "background": "https://public.easyinvoice.cloud/img/watermark-draft.jpg"
-      },*/
+          //"background": "https://public.easyinvoice.cloud/img/watermark-draft.jpg"
+      },
       // Your own data
       "sender": {
           //"company": "Sample Corp",
@@ -185,6 +185,7 @@ export default class InvoiceController {
           "total": "Total", // Defaults to 'Total'
           "vat": "iva" // Defaults to 'vat'
       },
+      "bottom-notice": params?.settings.footer
     };
 
     
