@@ -157,6 +157,13 @@ export default class InvoiceController {
           "city": "Chihuahua",
           "country": "México"
       },
+      /*"client": {
+        "company": "Client Corp",
+        "address": "Clientstreet 456",
+        "zip": "4567 CD",
+        "city": "Clientcity",
+        "country": "Clientcountry"
+    },*/
       "information": {
           // Invoice number
           "number": params.invoiceNumber,
@@ -174,7 +181,7 @@ export default class InvoiceController {
       // Translate your invoice to your preferred language
       "translate": {
           "invoice": "FACTURA",  // Default to 'INVOICE'
-          "number": "Número", // Defaults to 'Number'
+          "number": "Folio", // Defaults to 'Number'
           "date": "Fecha", // Default to 'Date'
           "due-date": "Fecha Límite", // Defaults to 'Due Date'
           "subtotal": "Subtotal", // Defaults to 'Subtotal'
