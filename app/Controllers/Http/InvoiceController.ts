@@ -141,8 +141,16 @@ export default class InvoiceController {
     const dateFormat = moment(date).format('DD-MM-YYYY');
     const dueDate = moment(date).add(15, 'days').format('DD-MM-YYYY');
     let easyInvoice = require('easyinvoice');
+    //Variables to use the local template in base 64
+    const fs = require('fs');
+    const customTemplate = fs.readFileSync('app/Resources/custom-template.html', 'utf8');
+    const encodedTemplate = Buffer.from(customTemplate).toString('base64');
 
     const data = {
+      //Added to import the encoded template
+      "customize": {
+        "template": encodedTemplate 
+      },
       "images": {
           // The logo on top of your invoice
           "logo": params?.settings.logo,
