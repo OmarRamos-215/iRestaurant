@@ -23,3 +23,21 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.get('/', async () => {
   return { hello: 'world' }
 })
+
+  Route.post("register", "AuthController.register");
+  Route.post("login", "AuthController.login");
+  Route.get("api/branches", "BranchesController.getBranchNames");
+
+Route.group(() => {
+      Route.group(() => {
+      Route.get("/", "ProductsController.index");
+      Route.get("/:id", "ProductsController.show");
+      Route.put("/update", "ProductsController.update");
+      Route.post("/", "ProductsController.store");
+      }).middleware("auth:api");
+}).prefix("products");
+
+Route.group(() => {
+  Route.post("/generate_xml", "InvoiceController.generateXML")
+  Route.post("/generate_pdf", "InvoiceController.generatePDF")
+}).prefix("invoices")
